@@ -7,6 +7,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,15 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "MainController", urlPatterns = {"/MainController"})
 public class MainController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    public boolean isValidLogin(String username, String password){
+        return username.equals("admin")&&password.equals("12345678");
+    }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -46,13 +41,22 @@ public class MainController extends HttpServlet {
             return;
         }
 
-         if (txtUsername.equals("admin")&&txtPassword.equals("12345678")) {
-            out.println("Login Sucessful!");
-            return;
+        //login process
+        if(isValidLogin(txtUsername, txtPassword)){
+            //forward search.html
+            RequestDispatcher rd = request.getRequestDispatcher("search.html");
+            rd.forward(request, response);
         } else {
-           out.println("Username or Password invalid!");
-            return;  
-    }
+            // forward / redirect invalid.html
+            // forward search.html
+            // RequestDispatcher rd = request.getRequestDispatcher("invalid.html");
+            // rd.forward(request, response);
+            
+            //redirectsearch.html
+            response.sendRedirect("invalid.html");
+            
+            //compare RequestDispatcher / response.sendRedirect? khac biet? khi nao nen dung?
+        }
 }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
