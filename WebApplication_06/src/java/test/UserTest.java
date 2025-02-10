@@ -21,6 +21,10 @@ public class UserTest {
             UserDTO ud_i = new UserDTO("USER"+i, "Nguyen Van "+i, "US", "_"+i);
             userDAO.create(ud_i);
         }
+        
+//       UserDTO ud2 = new UserDTO("TLN01", "Le Thanh Loc", "US", "Nothing");
+//        userDAO.update(ud2);
+        userDAO.delete("TLN01");
     
     }
 }
