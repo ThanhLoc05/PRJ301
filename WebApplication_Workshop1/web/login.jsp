@@ -12,6 +12,16 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <form action="MainController" method="post">
+            <input type="hidden" name="action" value="login"/>
+            Tên Đăng Nhập <input type="text" id="userName" name="txtUserName" required/>
+            Mật Khẩu <input type="password" id="password" name="txtPassword" required/>
+            <button type="submit" class="submit-btn">Đăng Nhập</button>
+            <%
+                String message = request.getAttribute("message")+"";
+            %>
+            <%=message.equals("null")?"":message%>
+        </form>
+            
     </body>
 </html>
