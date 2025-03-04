@@ -4,6 +4,7 @@
     Author     : acer
 --%>
 
+<%@page import="utils.AuthUtils"%>
 <%@page import="dto.UserDTO"%>
 <%@page import="dto.BookDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,31 +15,32 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <% if (session.getAttribute("user") != null){
-            UserDTO user = (UserDTO) session.getAttribute("user");
-            if(user.getRoleID().equals("AD")){
-        
-            
-        %>
-        <%
-            BookDTO book = new BookDTO();
-            try {
+        <jsp:include page="header.jsp"/>
+
+        <div class="page-content">
+            <% if (AuthUtils.isLoggedIn(session)) {
+                    UserDTO user = AuthUtils.getUser(session);
+                    if (AuthUtils.isAdmin(session)) {
+            %>
+            <%
+                BookDTO book = new BookDTO();
+                try {
                     book = (BookDTO) request.getAttribute("book");
                 } catch (Exception e) {
                     book = new BookDTO();
                 }
-            if(book==null){
-                book = new BookDTO();
-            }
-            //get error information
-            String txtBookID_error = request.getAttribute("txtBookID_error") + "";
-            txtBookID_error = txtBookID_error.equals("null") ? "" :txtBookID_error;
-            String txtTitle_error = request.getAttribute("txtTitle_error") + "";
-            txtTitle_error = txtTitle_error.equals("null") ? "" :txtTitle_error;
-            String txtQuantity_error = request.getAttribute("txtQuantity_error") + "";
-            txtQuantity_error = txtQuantity_error.equals("null") ? "" :txtQuantity_error;
-        %>
-        <div class="form-container">
+                if (book == null) {
+                    book = new BookDTO();
+                }
+                // get error information
+                String txtBookID_error = request.getAttribute("txtBookID_error") + "";
+                txtBookID_error = txtBookID_error.equals("null") ? "" : txtBookID_error;
+                String txtTitle_error = request.getAttribute("txtTitle_error") + "";
+                txtTitle_error = txtTitle_error.equals("null") ? "" : txtTitle_error;
+                String txtQuantity_error = request.getAttribute("txtQuantity_error") + "";
+                txtQuantity_error = txtQuantity_error.equals("null") ? "" : txtQuantity_error;
+            %>
+            <div class="form-container">
                 <h1>Book Information</h1>
                 <form action="MainController" method="post">
                     <input type="hidden" name="action" value="add"/>
