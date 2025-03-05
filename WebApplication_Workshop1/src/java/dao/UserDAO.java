@@ -69,7 +69,7 @@ public class UserDAO implements IDAO<UserDTO,String>{
 
     @Override
     public UserDTO readById(String id) {
-        String sql = "SELECT * FROM tblUsers WHERE userName = ?";
+        String sql = "SELECT * FROM [tblUsers] WHERE [userName] = ?";
         try {
             Connection conn  =DBUtils.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -77,10 +77,10 @@ public class UserDAO implements IDAO<UserDTO,String>{
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 UserDTO user = new UserDTO(
-                     rs.getString("userID"),
-                        rs.getString("fullName"),
-                        rs.getString("roleID"),
-                        rs.getString("password"));
+                     rs.getString("userName"),
+                        rs.getString("name"),
+                        rs.getString("password"),
+                        rs.getString("role"));
                 return user;
             }
         } catch (ClassNotFoundException ex) {

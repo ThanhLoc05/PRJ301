@@ -14,16 +14,20 @@ import java.util.Date;
  * @author acer
  */
 public class StartupProjectsDTO {
-    private int project_id;
+    private String project_id;
     private String project_name;
     private String Description;
     private String Status;
     private Date estimated_launch;
 
     public StartupProjectsDTO() {
+        this.project_id = "";
+        this.project_name = "";
+        this.Description = "";
+        this.Status = "";
     }
 
-    public StartupProjectsDTO(int project_id, String project_name, String Description, String Status, Date estimated_launch) {
+    public StartupProjectsDTO(String project_id, String project_name, String Description, String Status, Date estimated_launch) {
         this.project_id = project_id;
         this.project_name = project_name;
         this.Description = Description;
@@ -31,11 +35,11 @@ public class StartupProjectsDTO {
         this.estimated_launch = estimated_launch;
     }
 
-    public int getProject_id() {
+    public String getProject_id() {
         return project_id;
     }
 
-    public void setProject_id(int project_id) {
+    public void setProject_id(String project_id) {
         this.project_id = project_id;
     }
 
