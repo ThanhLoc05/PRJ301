@@ -33,6 +33,7 @@ public class MainController extends HttpServlet {
     private StartupProjectsDAO sp = new StartupProjectsDAO();
 
     private static final String LOGIN_PAGE = "login.jsp";
+    
 
     private String processLogin(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -74,8 +75,8 @@ public class MainController extends HttpServlet {
             if (searchTerm == null) {
                 searchTerm = "";
             }
-            List<StartupProjectsDTO> Projects = sp.searchByName(searchTerm);
-            request.setAttribute("Projects", Projects);
+            List<StartupProjectsDTO> projects = sp.searchByName(searchTerm);
+            request.setAttribute("projects", projects);
             request.setAttribute("searchTerm", searchTerm);
         }
         return url;

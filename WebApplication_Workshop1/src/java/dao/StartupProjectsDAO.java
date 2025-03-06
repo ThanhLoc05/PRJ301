@@ -61,7 +61,7 @@ public class StartupProjectsDAO implements IDAO<StartupProjectsDTO, String>{
     }
     
     public List<StartupProjectsDTO> searchByName(String searchTerm){
-        String sql = "SELECT * FROM tblStartupProjects WHERE title LIKE ?";
+        String sql = "SELECT * FROM [dbo].[tblStartupProjects] WHERE project_name LIKE ?";
         List<StartupProjectsDTO> list = new ArrayList<StartupProjectsDTO>();
         
         try {

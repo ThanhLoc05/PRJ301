@@ -157,36 +157,39 @@
             }
         </style>  
     </head>
-    <body> 
+    <body>
         <%@include file="header.jsp" %>
         <div style="min-height: 500px; padding: 10px">
-            <%                if (session.getAttribute("user") != null) {
+            <%
+                if (session.getAttribute("user") != null) {
                     UserDTO user = (UserDTO) session.getAttribute("user");
             %>
 
             <%
-                String searchTerm = request.getAttribute("searchTerm") + "";
-                searchTerm = searchTerm.equals("null") ? "" : searchTerm;
+                //String searchTerm = request.getAttribute("searchTerm") + "";
+                //searchTerm = searchTerm.equals("null") ? "" : searchTerm;
+                String searchTerm = (request.getAttribute("searchTerm") != null) ? request.getAttribute("searchTerm").toString() : "";
             %>
+
+            <% if (FounderUtils.isAdmin(session)) {%>
+            <a href="projectForm.jsp" class="add-btn">
+                Add New Startup Project    
+            </a>
             <div class="search-section">
                 <form action="MainController">
                     <input type="hidden" name="action" value="search"/>
                     <label for="searchInput">Search Projects:</label>
-                    <input type="text" id="searchInput" name="searchTerm" value="<%=searchTerm%>" class="search-input" placeholder="Enter project_id or project_ name or Description..."/>
+                    <input type="text" id="searchInput" name="searchTerm" value="<%=searchTerm%>" class="search-input" placeholder="Enter project_id or project_name or Description..."/>
                     <input type="submit" value="Search" class="search-btn"/>
                 </form>
             </div>
-            <% if (FounderUtils.isAdmin(session)) {
-            %>
-            <a href="projectForm.jsp" class="add-btn">
-                Add New Startup Project    
-            </a> 
-            <%}%>
+
+
+            <% } %>
 
             <%
-                if (request.getAttribute("project") != null) {
-                    List<StartupProjectsDTO> project = (List<StartupProjectsDTO>) request.getAttribute("books");
-
+                if (request.getAttribute("projects") != null) {
+                    List<StartupProjectsDTO> projects = (List<StartupProjectsDTO>) request.getAttribute("projects");
             %>
             <table class="project-table">
                 <thead>
@@ -196,40 +199,25 @@
                         <th>Description</th>
                         <th>Status</th>
                         <th>Estimate Launch</th>
-                        <% if (FounderUtils.isAdmin(session)) {
-                            %>
-                        <th>Action</th>
-                            <%}%>
                     </tr>
                 </thead>
                 <tbody>
-                    <%            for (StartupProjectsDTO sp : project) {
-                    %>
+                    <% for (StartupProjectsDTO sp : projects) {%>
                     <tr>
                         <td><%=sp.getProject_id()%></td>
                         <td><%=sp.getProject_name()%></td>
                         <td><%=sp.getDescription()%></td>
                         <td><%=sp.getStatus()%></td>
                         <td><%=sp.getEstimated_launch()%></td>
-                        <% 
-                            if (FounderUtils.isAdmin(session)) {
-                        %>
-                        <td><a href="MainController?action=delete&id=<%=sp.getProject_id()%>&searchTerm=<%=searchTerm%>">
-                                <img src="assets/images/delete-icon.png" style="height: 25px"/>
-
-                            </a></td>
-
-                        <%}%>
                     </tr>
-                    <%
-                        }
-                    %>
+                    <% } %>
                 </tbody>
             </table>
-            <%    }
-            } else { %>
+            <% } %>
+
+            <% } else { %>
             You do not have permission to access this content.
-            <%}%>
+            <% }%>
         </div>
         <jsp:include page="footer.jsp"/>
     </body>
