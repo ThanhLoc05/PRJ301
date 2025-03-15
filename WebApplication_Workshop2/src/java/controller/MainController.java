@@ -5,10 +5,13 @@
  */
 package controller;
 
+import javax.servlet.annotation.WebServlet;
+
 /**
  *
  * @author acer
  */
-public class MainController {
-    
+@WebServlet(name = "MainController", urlPatterns = {"/MainController"})
+public class MainController extends HttpServlet {
+    public 
 }

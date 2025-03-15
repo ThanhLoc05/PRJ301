@@ -12,6 +12,31 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <%@include file="header.jsp" %>
+        <div style="min-height: 500px; padding: 10px">
+            <c:set var="isLoggedIn" value="<%=Instructor.isLoggedIn(session)%>"/>
+            <c:set var="isAdmin" value="<%=Instructor.isAdmin(session)%>"/>
+
+            <c:if test="${isLoggedIn}">
+                <c:set var="searchTerm" value="${requestScope.searchTerm==null?"":requestScope.searchTerm}"/>
+                <div class="search-section">
+                    <form action="MainController">
+                        <input type="hidden" name="action" value="search"/>
+                        <label for="searchTerm">Search Category:</label>
+                        <input type="text" id="searchInput" name="searchTerm" value="${searchTerm}" class="search-input" placeholder="Enter Exam Title or Subject... "/>
+                        <input type="submit" value="Search" class="search-btn"/>
+                    </form>
+                </div>
+                <c:if test="${isAdmin}"
+                      <a href="" class="add-btn">
+                        Add
+                    </a>
+                </c:if>
+                <c:if test="${not empty requestScope.}">
+
+                </c:if>
+            </c:if>
+
+        </div>
     </body>
 </html>
