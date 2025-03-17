@@ -44,5 +44,10 @@ public class ExamCategoriesDTO{
     @Override
     public String toString() {
         return "StartupProjectDTO{" + "category_id=" + category_id + ", category_name=" + category_name + ", description=" + description + '}';
-    }    
+    }
+
+    
+    
+    
+    
 }
